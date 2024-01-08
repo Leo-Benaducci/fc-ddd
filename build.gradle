@@ -3,7 +3,13 @@ plugins {
 }
 
 group = 'br.com.lbenaducci'
-version = '1.0-SNAPSHOT'
+version = '1.0.0'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
 
 repositories {
     mavenCentral()
