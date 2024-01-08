@@ -19,6 +19,10 @@ public class Customer {
 		validate();
 	}
 
+	public UUID id() {
+		return id;
+	}
+
 	public String name() {
 		return name;
 	}
