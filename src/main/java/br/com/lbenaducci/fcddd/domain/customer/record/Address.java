@@ -1,4 +1,4 @@
-package br.com.lbenaducci.domain.customer.record;
+package br.com.lbenaducci.fcddd.domain.customer.record;
 
 public record Address(
 		String street,

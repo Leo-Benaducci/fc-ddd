@@ -1,8 +1,9 @@
-package br.com.lbenaducci.domain.customer.record;
+package br.com.lbenaducci.fcddd.domain.customer.record;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class AddressTest {
 	private static final String STREET = "street";
