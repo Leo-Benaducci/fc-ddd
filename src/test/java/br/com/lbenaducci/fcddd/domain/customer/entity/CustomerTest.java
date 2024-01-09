@@ -54,6 +54,14 @@ class CustomerTest {
 	}
 
 	@Test
+	void shouldThrowExceptionWhenAddressIsNullWhenChangeAddress() {
+		Customer customer = new Customer(ID, NAME);
+		customer.changeAddress(ADDRESS);
+		assertThrows(IllegalArgumentException.class, () -> customer.changeAddress(null));
+		assertEquals(ADDRESS, customer.address());
+	}
+
+	@Test
 	void shouldActivate() {
 		Customer customer = new Customer(ID, NAME);
 		assertFalse(customer.isActive());

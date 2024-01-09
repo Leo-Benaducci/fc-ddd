@@ -60,6 +60,9 @@ public class Customer {
 	}
 
 	public void changeAddress(Address address) {
+		if(address == null) {
+			throw new IllegalArgumentException("Address cannot be null to change an address");
+		}
 		this.address = address;
 	}
 
