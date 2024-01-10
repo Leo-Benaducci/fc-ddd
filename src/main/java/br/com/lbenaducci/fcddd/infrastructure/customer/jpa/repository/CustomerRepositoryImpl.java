@@ -1,6 +1,7 @@
 package br.com.lbenaducci.fcddd.infrastructure.customer.jpa.repository;
 
 import br.com.lbenaducci.fcddd.domain.customer.entity.Customer;
+import br.com.lbenaducci.fcddd.domain.customer.factory.CustomerFactory;
 import br.com.lbenaducci.fcddd.domain.customer.record.Address;
 import br.com.lbenaducci.fcddd.domain.customer.repository.CustomerRepository;
 import br.com.lbenaducci.fcddd.infrastructure.customer.jpa.model.CustomerModel;
@@ -61,18 +62,17 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 	}
 
 	private Customer fromModel(CustomerModel model) {
-		Customer customer = new Customer(model.getId(), model.getName());
-		Address address = new Address(model.getStreet(), model.getNumber(), model.getZipCode(), model.getCity());
-		customer.changeAddress(address);
-		if(model.isActive() || model.getRewardPoints() > 0) {
-			customer.activate();
-		}
-		if(model.getRewardPoints() > 0) {
-			customer.addRewardPoints(model.getRewardPoints());
-			if(!model.isActive()) {
-				customer.deactivate();
+		try {
+			Address address = new Address(model.getStreet(), model.getNumber(), model.getZipCode(), model.getCity());
+			if(model.getRewardPoints() > 0) {
+				return CustomerFactory.instanceWithRewardPoints(model.getId(), model.getName(), address, model.getRewardPoints(), model.isActive());
+			} else if(model.isActive()) {
+				return CustomerFactory.instanceActive(model.getId(), model.getName(), address);
+			} else {
+				return CustomerFactory.instanceWithAddress(model.getId(), model.getName(), address);
 			}
+		} catch(IllegalArgumentException e) {
+			return CustomerFactory.instance(model.getId(), model.getName());
 		}
-		return customer;
 	}
 }

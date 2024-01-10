@@ -22,7 +22,7 @@ class CustomerRepositoryImplTest {
 	private static final UUID ID = UUID.randomUUID();
 	private static final String NAME = "John";
 	private static final Address ADDRESS = new Address("street", "number", "zipCode", "city");
-	private static final CustomerModel MODEL = createCustomerModel(ID, NAME, true, 10);
+	private static final CustomerModel MODEL = createCustomerModel(ID, NAME, ADDRESS, true, 10);
 
 	@Test
 	void shouldCreateCustomer() {
@@ -81,33 +81,60 @@ class CustomerRepositoryImplTest {
 		Customer found = repository.findById(ID);
 		assertEquals(ID, found.id());
 		assertEquals(NAME, found.name());
-		assertEquals(ADDRESS.street(), found.address().street());
-		assertEquals(ADDRESS.number(), found.address().number());
-		assertEquals(ADDRESS.zipCode(), found.address().zipCode());
-		assertEquals(ADDRESS.city(), found.address().city());
+		assertEquals(ADDRESS, found.address());
 		assertTrue(found.isActive());
 		assertEquals(10, found.rewardPoints());
 
 		UUID id = UUID.randomUUID();
-		CustomerModel model2 = createCustomerModel(id, NAME, false, 10);
+		CustomerModel model2 = createCustomerModel(id, NAME, ADDRESS, false, 10);
 		jpaRepository.save(model2);
 
 		Customer found2 = repository.findById(id);
 		assertEquals(id, found2.id());
 		assertEquals(NAME, found2.name());
-		assertEquals(ADDRESS.street(), found2.address().street());
-		assertEquals(ADDRESS.number(), found2.address().number());
-		assertEquals(ADDRESS.zipCode(), found2.address().zipCode());
-		assertEquals(ADDRESS.city(), found2.address().city());
+		assertEquals(ADDRESS, found2.address());
 		assertFalse(found2.isActive());
 		assertEquals(10, found2.rewardPoints());
+
+		id = UUID.randomUUID();
+		CustomerModel model3 = createCustomerModel(id, NAME, ADDRESS, true, 0);
+		jpaRepository.save(model3);
+
+		Customer found3 = repository.findById(id);
+		assertEquals(id, found3.id());
+		assertEquals(NAME, found3.name());
+		assertEquals(ADDRESS, found3.address());
+		assertTrue(found3.isActive());
+		assertEquals(0, found3.rewardPoints());
+
+		id = UUID.randomUUID();
+		CustomerModel model4 = createCustomerModel(id, NAME, ADDRESS, false, 0);
+		jpaRepository.save(model4);
+
+		Customer found4 = repository.findById(id);
+		assertEquals(id, found4.id());
+		assertEquals(NAME, found4.name());
+		assertEquals(ADDRESS, found4.address());
+		assertFalse(found4.isActive());
+		assertEquals(0, found4.rewardPoints());
+
+		id = UUID.randomUUID();
+		CustomerModel model5 = createCustomerModel(id, NAME, null, false, 0);
+		jpaRepository.save(model5);
+
+		Customer found5 = repository.findById(id);
+		assertEquals(id, found5.id());
+		assertEquals(NAME, found5.name());
+		assertNull(found5.address());
+		assertFalse(found5.isActive());
+		assertEquals(0, found5.rewardPoints());
 	}
 
 	@Test
 	void shouldFindAllCustomers() {
 		jpaRepository.save(MODEL);
 		UUID id = UUID.randomUUID();
-		CustomerModel model2 = createCustomerModel(id, "Jane", false, 5);
+		CustomerModel model2 = createCustomerModel(id, "Jane", ADDRESS, false, 5);
 		jpaRepository.save(model2);
 
 		List<Customer> found = repository.findAll(0, 10);
@@ -118,16 +145,18 @@ class CustomerRepositoryImplTest {
 		assertEquals("Jane", found.get(1).name());
 	}
 
-	private static CustomerModel createCustomerModel(UUID id, String name, boolean active, int rewardPoints) {
+	private static CustomerModel createCustomerModel(UUID id, String name, Address address, boolean active, int rewardPoints) {
 		CustomerModel model = new CustomerModel();
 		model.setId(id);
 		model.setName(name);
 		model.setActive(active);
 		model.setRewardPoints(rewardPoints);
-		model.setStreet(ADDRESS.street());
-		model.setNumber(ADDRESS.number());
-		model.setZipCode(ADDRESS.zipCode());
-		model.setCity(ADDRESS.city());
+		if(address != null) {
+			model.setStreet(address.street());
+			model.setNumber(address.number());
+			model.setZipCode(address.zipCode());
+			model.setCity(address.city());
+		}
 		return model;
 	}
 }
