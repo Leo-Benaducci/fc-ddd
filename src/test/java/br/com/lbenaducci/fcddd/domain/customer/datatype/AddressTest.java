@@ -1,4 +1,4 @@
-package br.com.lbenaducci.fcddd.domain.customer.record;
+package br.com.lbenaducci.fcddd.domain.customer.datatype;
 
 import org.junit.jupiter.api.Test;
 

@@ -2,7 +2,7 @@ package br.com.lbenaducci.fcddd.infrastructure.customer.jpa.repository;
 
 import br.com.lbenaducci.fcddd.domain.customer.entity.Customer;
 import br.com.lbenaducci.fcddd.domain.customer.factory.CustomerFactory;
-import br.com.lbenaducci.fcddd.domain.customer.record.Address;
+import br.com.lbenaducci.fcddd.domain.customer.datatype.Address;
 import br.com.lbenaducci.fcddd.domain.customer.repository.CustomerRepository;
 import br.com.lbenaducci.fcddd.infrastructure.customer.jpa.model.CustomerModel;
 import jakarta.persistence.EntityNotFoundException;

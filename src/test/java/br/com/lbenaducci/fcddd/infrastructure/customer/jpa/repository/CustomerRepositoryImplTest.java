@@ -1,7 +1,7 @@
 package br.com.lbenaducci.fcddd.infrastructure.customer.jpa.repository;
 
 import br.com.lbenaducci.fcddd.domain.customer.entity.Customer;
-import br.com.lbenaducci.fcddd.domain.customer.record.Address;
+import br.com.lbenaducci.fcddd.domain.customer.datatype.Address;
 import br.com.lbenaducci.fcddd.infrastructure.customer.jpa.model.CustomerModel;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package br.com.lbenaducci.fcddd.domain.customer.entity;
 
-import br.com.lbenaducci.fcddd.domain.customer.record.Address;
+import br.com.lbenaducci.fcddd.domain.customer.datatype.Address;
 
 import java.util.UUID;
 

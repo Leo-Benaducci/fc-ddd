@@ -1,7 +1,7 @@
 package br.com.lbenaducci.fcddd.domain.customer.factory;
 
 import br.com.lbenaducci.fcddd.domain.customer.entity.Customer;
-import br.com.lbenaducci.fcddd.domain.customer.record.Address;
+import br.com.lbenaducci.fcddd.domain.customer.datatype.Address;
 import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
