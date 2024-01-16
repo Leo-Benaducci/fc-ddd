@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public class CustomerFactory {
 
-	protected CustomerFactory() {
+	CustomerFactory() {
 		throw new UnsupportedOperationException("Utility class");
 	}
 
